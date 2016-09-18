@@ -4,6 +4,8 @@
  * You may assume that each input would have exactly one solution.
  */
  
- public class Solution {
- 
- }
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        
+    }
+}
