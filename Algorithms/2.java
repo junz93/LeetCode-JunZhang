@@ -19,25 +19,22 @@ public class Solution {
         ListNode first = new ListNode(0);
         ListNode now = first;
         int carry = 0;
-        while(l1 != null || l2 != null || carry != 0) {
-            int add = carry;
-            if(l1 != null) {
-                add += l1.val;
+        while(l1 != null || l2 != null || carry != 0)
+        {
+            int sum = carry;
+            if(l1 != null)
+            {
+                sum += l1.val;
                 l1 = l1.next;
             }
-            if(l2 != null) {
-                add += l2.val;
+            if(l2 != null)
+            {
+                sum += l2.val;
                 l2 = l2.next;
             }
 
-            if(add > 9) {
-                add -= 10;
-                carry = 1;
-            }
-            else
-                carry = 0;
-
-            now.next = new ListNode(add);
+            carry = sum / 10;
+            now.next = new ListNode(sum % 10);
             now = now.next;
         }
         return first.next;
