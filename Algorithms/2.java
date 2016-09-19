@@ -11,7 +11,9 @@
 class ListNode {
     int val;
     ListNode next;
-    ListNode(int x) { val = x; }
+    ListNode(int x) {
+        val = x;
+    }
 }
  
 public class Solution {
@@ -19,19 +21,17 @@ public class Solution {
     {
         ListNode first = new ListNode(0);
         ListNode now = first;
+        ListNode n1 = l1, n2 = l2;
         int carry = 0;
-        while(l1 != null || l2 != null || carry != 0)
-        {
+        while(n1 != null || n2 != null || carry != 0) {
             int sum = carry;
-            if(l1 != null)
-            {
-                sum += l1.val;
-                l1 = l1.next;
+            if(n1 != null) {
+                sum += n1.val;
+                n1 = n1.next;
             }
-            if(l2 != null)
-            {
-                sum += l2.val;
-                l2 = l2.next;
+            if(n2 != null) {
+                sum += n2.val;
+                n2 = n2.next;
             }
 
             carry = sum / 10;
