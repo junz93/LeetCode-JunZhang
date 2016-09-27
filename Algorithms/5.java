@@ -7,9 +7,19 @@
 public class Solution {
     public String longestPalindrome(String s) {
         int begin = 0, end = 0;
-        for(int i = 0; i < s.length(); i++)
+        boolean odd = true;
+        for(int i = 0; i < s.length();)
         {
-            int l = i, r = i;
+            int l, r;
+            if(odd)
+            {
+                l = i; r = i;
+            }
+            else
+            {
+                l = i; r = ++i;
+            }
+            
             while(l >= 0 && r < s.length())
             {
                 if(s.charAt(l) != s.charAt(r))
@@ -22,24 +32,7 @@ public class Solution {
                 begin = l;
                 end = r;
             }
-
-            if(i!=s.length()-1 && s.charAt(i)==s.charAt(i+1))
-            {
-                l = i;
-                r = i+1;
-                while(l >= 0 && r < s.length())
-                {
-                    if(s.charAt(l) != s.charAt(r))
-                        break;
-                    l--; r++;
-                }
-                l++; r--;
-                if(r-l > end-begin)
-                {
-                    begin = l;
-                    end = r;
-                }
-            }
+            odd = !odd;
         }
         return s.substring(begin, end+1);
     }
