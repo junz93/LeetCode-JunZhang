@@ -1,10 +1,6 @@
-/**
- *
- *
- */
 public class Solution {
     public String longestPalindrome(String s) {
-        String lps = "";
+        int begin = 0, end = 0;
         for(int i = 0; i < s.length(); i++)
         {
             int l = i, r = i;
@@ -15,9 +11,12 @@ public class Solution {
                 l--; r++;
             }
             l++; r--;
-            if(r-l+1 > lps.length())
-                lps = s.substring(l, r+1);
-            
+            if(r-l > end-begin)
+            {
+                begin = l;
+                end = r;
+            }
+
             if(i!=s.length()-1 && s.charAt(i)==s.charAt(i+1))
             {
                 l = i;
@@ -29,11 +28,14 @@ public class Solution {
                     l--; r++;
                 }
                 l++; r--;
-                if(r-l+1 > lps.length())
-                    lps = s.substring(l, r+1);                
+                if(r-l > end-begin)
+                {
+                    begin = l;
+                    end = r;
+                }
             }
         }
-        return lps;
+        return s.substring(begin, end+1);
     }
     
     // private boolean isPalin(String s) {
