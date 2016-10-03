@@ -11,13 +11,13 @@ public class Solution {
         int i = 0, j = height.length-1, max = 0;
         while(i < j)
         {
-            int t_max = Math.min(height[i], height[j]) * (j-i);
+            int t_max;
+            if(height[i] < height[j])
+                t_max = (j-i) * height[i++];
+            else
+                t_max = (j-i) * height[j--];
             if(t_max > max)
                 max = t_max;
-            if(height[i] < height[j])
-                i++;
-            else
-                j--;
         }
         
         return max;
