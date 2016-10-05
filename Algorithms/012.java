@@ -11,15 +11,27 @@
  */
 
 public class Solution {
+    // A very simple version:
     public String intToRoman(int num) {
+        String[] s3 = {"", "M", "MM", "MMM"};
+        String[] s2 = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+        String[] s1 = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+        String[] s0 = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+        
+        return s3[num/1000] + s2[(num%1000)/100] + s1[(num%100)/10] + s0[num%10];
+    }
+    
+    // More general version:
+    public String intToRoman_2(int num) {
         StringBuilder sb = new StringBuilder();
         char[] rom = new char[]{'I', 'V', 'X', 'L', 'C', 'D', 'M'};
         int i = 0;
-        // for(int t = num; t/10 > 0; i*=10);
-        
-        while(num > 0)
+        for(int t = num; t >= 10; i++)
+            t /= 10;
+        int div = (int)Math.pow(10, i);
+        while(i>=0)
         {
-            int digit = num % 10;
+            int digit = num / div;
             if(i < 3)
             {
                 if(digit < 4)
@@ -29,19 +41,19 @@ public class Solution {
                 }
                 else if(digit == 4)
                 {
-                    sb.append(rom[i*2+1]);
                     sb.append(rom[i*2]);
+                    sb.append(rom[i*2+1]);
                 }
                 else if(digit == 9)
                 {
-                    sb.append(rom[i*2+2]);
                     sb.append(rom[i*2]);
+                    sb.append(rom[i*2+2]);
                 }
                 else
                 {
+                    sb.append(rom[i*2+1]);
                     for(int k = 0; k < digit-5; k++)
                         sb.append(rom[i*2]);
-                    sb.append(rom[i*2+1]);
                 }
             }
             else
@@ -50,9 +62,9 @@ public class Solution {
                     sb.append('M');
             }
             
-            num /= 10;
-            i++;
+            num %= div;
+            div /= 10;
+            i--;
         }
-        return sb.reverse().toString();
-    }
+        return sb.toString();
 }
