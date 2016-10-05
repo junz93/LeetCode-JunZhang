@@ -11,7 +11,7 @@
  */
 
 public class Solution {
-    // A very simple version:
+    // A very simple version (brutal and boring but sometimes may be useful):
     public String intToRoman(int num) {
         String[] s3 = {"", "M", "MM", "MMM"};
         String[] s2 = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
