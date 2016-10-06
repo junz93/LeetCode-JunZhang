@@ -87,7 +87,7 @@ The Java-style code pattern is (take 3-Sum as an example):
 <b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^{X-1}\right)">.</b>
 
 This approach reduces the cost of the inner search to <img src="http://www.forkosh.com/mathtex.cgi?O\left(1\right)">. 
-The cost of creating hash table is lower than sorting the sequence.
+Note that cost of creating hash table is lower than sorting the sequence. For 2-Sum problem, hash table is the most efficient way to solve it.
 
 ## 4. Two pointers
 This name might not be a formal one, but it implies the key features. This approach uses two pointers that move towards each other. 
