@@ -57,7 +57,7 @@ The Java-style code pattern is (take 3-Sum as an example):
 
 <b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^{X-1}\log%20n\right)">.</b>
 
-This approach reduces the cost of inner search from <img src="http://www.forkosh.com/mathtex.cgi?O\left(n\right)"> to <img src="http://www.forkosh.com/mathtex.cgi?O\left(\log%20n\right)">. However, it requires a sort operation before search, 
+This approach reduces the cost of the inner search from <img src="http://www.forkosh.com/mathtex.cgi?O\left(n\right)"> to <img src="http://www.forkosh.com/mathtex.cgi?O\left(\log%20n\right)">. However, it requires a sort operation before search, 
 which usually has a time-complexity <img src="http://www.forkosh.com/mathtex.cgi?O\left(\log%20n\right)">.
 
 ## 3. Hash table
@@ -84,5 +84,31 @@ The Java-style code pattern is (take 3-Sum as an example):
             }
         }
 
-## 4. Two pointers
+<b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^{X-1}\right)">.</b>
 
+This approach reduces the cost of the inner search to <img src="http://www.forkosh.com/mathtex.cgi?O\left(1\right)">. 
+The cost of creating hash table is lower than sorting the sequence.
+
+## 4. Two pointers
+This name might not be a formal one, but it implies the key features. This approach uses two pointers that move towards each other. 
+
+By using it, we also have to <b>sort</b> the sequence first. Then we try every combinations of the first X-2 numbers, 
+and use this approach to look for the last two numbers. 
+
+Specifically, we set two pointers (usually indices) to the first and last element of the rest of the sequence respectively. 
+Then we compare the sum of the X numbers with the target. If the sum is smaller, we increment the first pointer, 
+or if the sum is greater, we decrement the pointer. Otherwise, we find a combination that fulfills the requirement.
+
+The Java-style code pattern is (take 3-Sum as an example):
+
+    Arrays.sort(nums);
+    for(int i = 0; i < N; i++)
+    {
+        int left = i+1, right = N-1;
+        
+    }
+    
+This approach is often used in situations where we need to choose two elements that meet some requirements. 
+Instead of iterating over all the combinations of two elements, we can just proceed bi-directionally.
+In each step, we do something (such as computing some values), and decide accordingly how to move the two pointers. 
+Finally, the two pointers meet each other, and the loop terminates.
