@@ -22,7 +22,7 @@ The Java-style code pattern is (take 3-Sum as an example):
             }
             
 
-<b>The time-complexity is O(\\(n^X\\)).</b>
+<b>The time-complexity is <img src="http://chart.googleapis.com/chart?cht=tx&chl=O(n^X)" style="border:none;"></b>
 
 Although it is easy to come up with and implement, this approach is inefficient.
 
