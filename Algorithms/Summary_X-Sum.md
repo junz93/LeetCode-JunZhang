@@ -105,9 +105,23 @@ The Java-style code pattern is (take 3-Sum as an example):
     for(int i = 0; i < N; i++)
     {
         int left = i+1, right = N-1;
-        
+        while(left < right)
+        {
+            int sum = nums[i] + nums[left] + nums[right];
+            if(sum < target)
+                left++;
+            else if(sum > target)
+                right--:
+            else
+            {
+                // do something
+                j++; k--;           // if you want to continue searching
+            }
+        }
     }
     
+<b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^{X-1}\right)">.</b>
+
 This approach is often used in situations where we need to choose two elements that meet some requirements. 
 Instead of iterating over all the combinations of two elements, we can just proceed bi-directionally.
 In each step, we do something (such as computing some values), and decide accordingly how to move the two pointers. 
