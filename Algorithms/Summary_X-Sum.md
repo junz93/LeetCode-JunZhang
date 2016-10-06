@@ -25,9 +25,9 @@ The Java-style code pattern is (take 3-Sum as an example):
                 }
             }           
 
-<b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^X\right)"></b>
+<b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^X\right)">.</b>
 
-Although it is easy to come up with and implement, this approach is inefficient.
+Although it is easy to come up with and implement, this approach is inefficient and usually not used in practice.
 
 ## 2. Binary search
 First, we have to <b>sort</b> the sequence. 
@@ -35,6 +35,7 @@ Then, we can try all the combinations of X-1 numbers, and use binary search to l
 
 The Java-style code pattern is (take 3-Sum as an example):
 
+    Arrays.sort(nums);
     for(int i = 0; i < N; i++)
         for(int j = i+1; j < N; j++)
         {
@@ -42,22 +43,46 @@ The Java-style code pattern is (take 3-Sum as an example):
             while(lo <= hi)
             {
                 int mid = (lo+hi) / 2;
-                int sum = nums[i] + nums[j] + nums[mid];
-                if(target < sum)
+                int key = target - nums[i] - nums[j];
+                if(key < nums[mid])
                     hi = mid - 1;
-                else if(target > sum)
+                else if(key > nums[mid])
                     lo = mid + 1;
                 else
+                {
                     // do something
+                }
             }
         }        
 
-<b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^{X-1}logn\right)"></b>
+<b>The time-complexity is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n^{X-1}\log%20n\right)">.</b>
 
-This approach reduces the cost of inner search from O(n) to O(logn). However, it requires a sort operation before search, 
-which usually has a time-complexity O(n*logn).
+This approach reduces the cost of inner search from <img src="http://www.forkosh.com/mathtex.cgi?O\left(n\right)"> to <img src="http://www.forkosh.com/mathtex.cgi?O\left(\log%20n\right)">. However, it requires a sort operation before search, 
+which usually has a time-complexity <img src="http://www.forkosh.com/mathtex.cgi?O\left(\log%20n\right)">.
 
 ## 3. Hash table
+We can also use hash table to look for the last number after determining the first X-1 numbers. 
+This requires us to create a hash table for the sequence, whose time cost is <img src="http://www.forkosh.com/mathtex.cgi?O\left(n\right)">.
+
+The Java-style code pattern is (take 3-Sum as an example):
+
+    HashMap<Integer, Integer> ht = new HashMap<>();
+    for(int i = 0; i < N; i++)
+        ht.put(nums[i], i);
+    
+    for(int i = 0; i < N; i++)
+        for(int j = i+1; j < N; j++)
+        {
+            int key = target - nums[i] - nums[j];
+            if(ht.containsKey(key))
+            {
+                int k = ht.get(key);
+                if(k > j)
+                {
+                    // do something
+                }
+            }
+        }
 
 ## 4. Two pointers
 
