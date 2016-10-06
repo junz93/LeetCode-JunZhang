@@ -90,7 +90,7 @@ This approach reduces the cost of the inner search to <img src="http://www.forko
 Note that cost of creating hash table is lower than sorting the sequence. For 2-Sum problem, hash table is the most efficient way to solve it.
 
 ## 4. Two pointers
-This name might not be a formal one, but it implies the key features. This approach uses two pointers that move towards each other. 
+This name might not be formal, but it implies the key features. This approach uses two pointers that move towards each other. 
 
 By using it, we also have to <b>sort</b> the sequence first. Then we try every combinations of the first X-2 numbers, 
 and use this approach to look for the last two numbers. 
