@@ -1,3 +1,10 @@
+/**
+ * 18. 4Sum
+ * Given an array S of n integers and a target, 
+ * find all unique quadruplets in the array which gives the sum of target.
+ * Note: The solution set must not contain duplicate quadruplets.
+ */
+
 public class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> res = new LinkedList<>();
