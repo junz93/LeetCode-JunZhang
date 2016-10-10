@@ -7,42 +7,47 @@
 
 public class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(nums);
+        List<List<Integer>> res = new LinkedList<>();
+        if(nums==null || nums.length<3)
+            return res;
         int N = nums.length;
+        Arrays.sort(nums);
+        int max = nums[N-1];
+        if(nums[0]*3>0 || max*3<0)
+            return res;
+        
         for(int i = 0; i < N; i++)
         {
             if(i>0 && nums[i]==nums[i-1])
                 continue;
-            int j = i+1, k = N-1;
-            while(j < k)
+            if(nums[i]+2*max < 0)
+                continue;
+            if(3*nums[i]>0)
+                continue;
+            int lo = i+1, hi = N-1;
+            while(lo < hi)
             {
-                if(j>i+1 && nums[j]==nums[j-1])
+                if(lo>i+1 && nums[lo]==nums[lo-1])
                 {
-                    j++;
-                    continue;
+                    lo++; continue;
                 }
-                if(k<N-1 && nums[k]==nums[k+1])
+                if(hi<N-1 && nums[hi]==nums[hi+1])
                 {
-                    k--;
-                    continue;
+                    hi--; continue;
                 }
                 
-                int sum = nums[i] + nums[j] + nums[k];
+                int sum = nums[i] + nums[lo] + nums[hi];
                 if(sum < 0)
-                    j++;
+                    lo++;
                 else if(sum > 0)
-                    k--;
+                    hi--;
                 else
                 {
-                    List<Integer> lst = new ArrayList<>();
-                    lst.add(nums[i]);
-                    lst.add(nums[j++]);
-                    lst.add(nums[k--]);
-                    result.add(lst);
+                    res.add(Arrays.asList(nums[i], nums[lo], nums[hi]));
+                    lo++; hi--;
                 }
             }
         }
-        return result;
+        return res;
     }
 }
