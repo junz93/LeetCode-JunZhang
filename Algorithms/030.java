@@ -1,3 +1,10 @@
+/**
+ * 30. Substring with Concatenation of All Words
+ * You are given a string, <b>s</b>, and a list of words, <b>words</b>, that are all of the same length.
+ * Find all starting indices of substring(s) in s that is a concatenation of each word in words 
+ * exactly once and without any intervening characters.
+ */
+
 public class Solution {
     public List<Integer> findSubstring(String s, String[] words) {
         List<Integer> res = new LinkedList<>();
@@ -19,7 +26,7 @@ public class Solution {
         {
             int num = 0;
             HashMap<String, Integer> words_enc = new HashMap<>();
-            for(int i = k; i <= s.length()-len_word*(num_words-num);)
+            for(int i = k; i <= s.length()-len_word*(num_words-num); i += len_word)
             {
                 if(num == 0)
                     words_enc = new HashMap<>();
@@ -41,7 +48,7 @@ public class Solution {
                             String t = s.substring(p, p+len_word);
                             if(t.equals(w))
                                 break;
-                            else if(words_enc.containsKey(t))
+                            else
                             {
                                 words_enc.put(t, words_enc.get(t)-1);
                                 num--;
@@ -53,14 +60,15 @@ public class Solution {
                         words_enc.put(w, words_enc.get(w)+1);
                         num++;
                     }
-                }
-                i += len_word;
+                }                
                 
                 if(num == num_words)
                 {
-                    i -= len_word*(num_words-1);
-                    res.add(i-len_word);
-                    num = 0;
+                    int start = i-len_word*(num-1);
+                    res.add(start);
+                    String t = s.substring(start, start+len_word);
+                    words_enc.put(t, words_enc.get(t)-1);
+                    num--;
                 }
             }
         }
