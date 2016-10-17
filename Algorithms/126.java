@@ -1,5 +1,20 @@
 public class Solution {
+    // beginWord and endWord are not included in the wordList
     public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
+        String[] words = new String[wordList.size()+2];
+        words[0] = beginWord;
+        words[words.length-1] = endWord;
+        int idx = 1;
+        for(String word : wordList)
+            words[idx++] = word;
+
+        List<Integer>[] G = createGraph(words);
+        List<Integer>[] edgeTo = findPaths(G, 0);
+        return pathTo(edgeTo, 0, words.length-1, words);
+    }
+    
+    // beginWord and endWord may be in the wordList
+    public List<List<String>> findLadders_2(String beginWord, String endWord, Set<String> wordList) {
         wordList.add(beginWord);
         wordList.add(endWord);
         String[] words = wordList.toArray(new String[0]);
@@ -48,9 +63,8 @@ public class Solution {
         int[] dist = new int[G.length];         // all 0
         boolean[] marked = new boolean[G.length];   // all false
         for(int i = 0; i < G.length; i++)
-        {
             edgeTo[i] = new LinkedList<>();
-        }
+
         LinkedList<Integer> vt = new LinkedList<>();
         vt.add(begin);
         marked[begin] = true;
