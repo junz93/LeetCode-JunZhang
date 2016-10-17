@@ -1,3 +1,22 @@
+/**
+ * 126. Word Ladder II
+ * Given two words (beginWord and endWord), and a dictionary's word list,
+ * find all shortest transformation sequence(s) from beginWord to endWord.
+ * Note: 
+ * 1. Only one letter can be changed at a time
+ * 2. Each intermediate word must exist in the word list
+ *
+ * Example: 
+ * beginWord = "hit"
+ * endWord = "cog"
+ * wordList = ["hot","dot","dog","lot","log"]
+ * Results: 
+ * [
+ *  ["hit","hot","dot","dog","cog"],
+ *  ["hit","hot","lot","log","cog"]
+ * ]
+ */
+
 public class Solution {
     // beginWord and endWord are not included in the wordList
     public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
