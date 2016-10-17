@@ -6,7 +6,7 @@
  */
 
 public class Solution {
-    // iterative solution with FIFO queue
+    // iterative solution with FIFO queue (like BFS)
     public List<String> letterCombinations(String digits) {
         LinkedList<String> re = new LinkedList<>();
         if(digits==null || digits.length()==0)
@@ -15,11 +15,11 @@ public class Solution {
             if(digits.charAt(i)<'2' || digits.charAt(i)>'9')
                 return re;
 
-        String[] syms = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        String[] map = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         re.add("");
         for(int i = 0; i < digits.length(); i++)
         {
-            String ch = syms[digits.charAt(i)-'0'];
+            String ch = map[digits.charAt(i)-'0'];
             while(re.element().length() == i)
             {
                 String com = re.remove();
