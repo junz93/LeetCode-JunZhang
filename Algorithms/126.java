@@ -1,15 +1,20 @@
 public class Solution {
     public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
-        String[] words = new String[wordList.size()+2];
-        words[0] = beginWord;
-        words[words.length-1] = endWord;
-        int idx = 1;
-        for(String word : wordList)
-            words[idx++] = word;
-        
+        wordList.add(beginWord);
+        wordList.add(endWord);
+        String[] words = wordList.toArray(new String[0]);
+        int begin = 0, end = 0;
+        for(int i = 0; i < words.length; i++)
+        {
+            if(words[i].equals(beginWord))
+                begin = i;
+            else if(words[i].equals(endWord))
+                end = i;
+        }
+
         List<Integer>[] G = createGraph(words);
-        List<Integer>[] edgeTo = findPaths(G, 0);
-        return pathTo(edgeTo, 0, words.length-1, words);
+        List<Integer>[] edgeTo = findPaths(G, begin);
+        return pathTo(edgeTo, begin, end, words);
     }
 
     private List<Integer>[] createGraph(String[] words)
@@ -46,7 +51,6 @@ public class Solution {
         {
             edgeTo[i] = new LinkedList<>();
         }
-        dist[begin] = -1;
         LinkedList<Integer> vt = new LinkedList<>();
         vt.add(begin);
         marked[begin] = true;
@@ -55,6 +59,8 @@ public class Solution {
             int v = vt.remove();
             for(int w : G[v])
             {
+                if(w == begin)
+                    continue;
                 if(!marked[w])
                 {
                     vt.add(w);
