@@ -8,8 +8,8 @@ public class Solution {
             words[idx++] = word;
         
         List<Integer>[] G = createGraph(words);
-        List<Integer>[] edgeTo = findPaths(G, words, 0);
-        return pathTo(edgeTo, 0, words.length-1);
+        List<Integer>[] edgeTo = findPaths(G, 0);
+        return pathTo(edgeTo, 0, words.length-1, words);
     }
 
     private List<Integer>[] createGraph(String[] words)
@@ -37,65 +37,63 @@ public class Solution {
         return G;
     }
 
-    private HashMap<String, List<String>> findPaths(HashMap<String, List<String>> G, Set<String> wordList, String beginWord)
+    private List<Integer>[] findPaths(List<Integer>[] G, int begin)
     {
-        HashMap<String, List<String>> edgeTo = new HashMap<>();
-        HashMap<String, Integer> dist = new HashMap<>();
-        HashMap<String, Boolean> marked = new HashMap<>();
-        for(String word : wordList)
+        List<Integer>[] edgeTo = new List[G.length];
+        int[] dist = new int[G.length];         // all 0
+        boolean[] marked = new boolean[G.length];   // all false
+        for(int i = 0; i < G.length; i++)
         {
-            edgeTo.put(word, new LinkedList<String>());
-            dist.put(word, Integer.MAX_VALUE);
-            marked.put(word, false);
+            edgeTo[i] = new LinkedList<>();
         }
-        dist.put(beginWord, 0);
-        LinkedList<String> vt = new LinkedList<>();
-        vt.add(beginWord);
-        marked.put(beginWord, true);
+        dist[begin] = -1;
+        LinkedList<Integer> vt = new LinkedList<>();
+        vt.add(begin);
+        marked[begin] = true;
         while(!vt.isEmpty())
         {
-            String v = vt.remove();
-            for(String w : G.get(v))
+            int v = vt.remove();
+            for(int w : G[v])
             {
-                if(!marked.get(w))
+                if(!marked[w])
                 {
                     vt.add(w);
-                    marked.put(w, true);
+                    marked[w] = true;
                 }
-                int t_dist = dist.get(v) + 1;
-                if(t_dist < dist.get(w))
+                int t_dist = dist[v] + 1;
+                if(dist[w]==0 || t_dist<dist[w])
                 {
-                    dist.put(w, t_dist);
-                    List<String> a = new LinkedList<>();
+                    dist[w] = t_dist;
+                    List<Integer> a = new LinkedList<>();
                     a.add(v);
-                    edgeTo.put(w, a);
+                    edgeTo[w] = a;
                 }
-                else if(t_dist == dist.get(w))
-                    edgeTo.get(w).add(v);
+                else if(t_dist == dist[w])
+                    edgeTo[w].add(v);
             }
         }
         return edgeTo;
     }
 
-    private List<List<String>> pathTo(HashMap<String, List<String>> edgeTo, String beginWord, String endWord)
+    private List<List<String>> pathTo(List<Integer>[] edgeTo, int begin, int end, String[] words)
     {
         List<List<String>> paths = new LinkedList<>();
-        pathTo(paths, new LinkedList<String>(), edgeTo, beginWord, endWord);
+        pathTo(paths, new LinkedList<String>(), edgeTo, begin, end, words);
         return paths;
     }
 
-    private void pathTo(List<List<String>> paths, LinkedList<String> path, HashMap<String, List<String>> edgeTo, String beginWord, String endWord)
+    private void pathTo(List<List<String>> paths, LinkedList<String> path, List<Integer>[] edgeTo, int begin, int end, String[] words)
     {
-        if(endWord.equals(beginWord))
+        if(end == begin)
         {
-            path.push(beginWord);
+            path.push(words[begin]);
             paths.add((List<String>) path.clone());
             path.pop();
             return;
         }
-        path.push(endWord);
-        for(String w : edgeTo.get(endWord))
-            pathTo(paths, path, edgeTo, beginWord, w);
+        path.push(words[end]);
+        for(int w : edgeTo[end])
+            pathTo(paths, path, edgeTo, begin, w, words);
         path.pop();
     }
 }
