@@ -59,7 +59,7 @@ public class Solution {
         return false;
     }
     
-    // Dynamic Programming
+    // Dynamic Programming version
     public boolean isMatch_2(String s, String p) {
         int len_s = s.length(), len_p = p.length();
         boolean[][] dp = new boolean[len_s+1][len_p+1];
