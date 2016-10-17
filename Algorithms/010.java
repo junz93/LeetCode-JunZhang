@@ -58,4 +58,26 @@ public class Solution {
             return isMatch(s, p, i, j+2);
         return false;
     }
+    
+    // Dynamic Programming
+    public boolean isMatch_2(String s, String p) {
+        int len_s = s.length(), len_p = p.length();
+        boolean[][] dp = new boolean[len_s+1][len_p+1];
+        dp[0][0] = true;
+        for(int i = 0; i <= len_s; i++)
+            for(int j = 1; j <= len_p; j++)
+            {
+                if(p.charAt(j-1)=='*' && j>=2)
+                {
+                    dp[i][j] = dp[i][j-2] || 
+                                (i>=1 && dp[i-1][j] && (p.charAt(j-2)=='.' || s.charAt(i-1)==p.charAt(j-2)));
+                }
+                else
+                {
+                    dp[i][j] = i>=1 && dp[i-1][j-1] && (p.charAt(j-1)=='.' || s.charAt(i-1)==p.charAt(j-1));
+                }
+            }
+        
+        return dp[len_s][len_p];
+    }
 }
