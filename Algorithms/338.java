@@ -14,8 +14,8 @@ public class Solution {
             int n = i;
             while(n > 0)
             {
-                count += n%2;
-                n /= 2;
+                count += n & 1;
+                n = n >> 1;
             }
             c[i] = count;
         }
