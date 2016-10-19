@@ -32,7 +32,7 @@ public class Solution {
         {
             int k = i;
             for(int j = i; j < nums.length; j++)
-                if(nums[j]>nums[i-1] && nums[j]<=nums[k])
+                if(nums[j]>nums[i-1] && nums[j]<=nums[k])    // the '<=' sign here is crucial and cannot be replaced with '<' sign
                     k = j;
             int temp = nums[i-1];
             nums[i-1] = nums[k];
