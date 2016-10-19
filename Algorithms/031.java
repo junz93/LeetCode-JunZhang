@@ -26,11 +26,13 @@ public class Solution {
         }
     }
     
-    public void nextPermutation(int[] nums) {
+    // sort manually (O(n) running time) instead of using Arrays.sort(...)
+    public void nextPermutation_2(int[] nums) {
         int i;
         for(i = nums.length-1; i>0 && nums[i]<=nums[i-1]; i--) ;
         if(i == 0)
         {
+            // array nums[0 .. N-1] is in reverse order
             for(int j = 0; j < nums.length/2; j++)
             {
                 int temp = nums[j];
@@ -47,6 +49,7 @@ public class Solution {
             int temp = nums[i-1];
             nums[i-1] = nums[k];
             nums[k] = temp;
+            // subarray nums[i .. N-1] is in reverse order
             for(int j = i; j < i+(nums.length-i)/2; j++)
             {
                 temp = nums[j];
