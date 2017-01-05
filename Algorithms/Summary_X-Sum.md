@@ -104,7 +104,7 @@ The Java-style code pattern is (take 3-Sum as an example):
     Arrays.sort(nums);
     for(int i = 0; i < N; i++)
     {
-        int lo = i+1, hi = N-1;
+        int lo = i+1, hi = N-1;
         while(lo < hi)
         {
             int sum = nums[i] + nums[lo] + nums[hi];
