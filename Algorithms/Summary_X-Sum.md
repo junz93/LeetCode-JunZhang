@@ -104,18 +104,18 @@ The Java-style code pattern is (take 3-Sum as an example):
     Arrays.sort(nums);
     for(int i = 0; i < N; i++)
     {
-        int left = i+1, right = N-1;
-        while(left < right)
+        int lo = i+1, hi = N-1;
+        while(lo < hi)
         {
-            int sum = nums[i] + nums[left] + nums[right];
+            int sum = nums[i] + nums[lo] + nums[hi];
             if(sum < target)
-                left++;
+                lo++;
             else if(sum > target)
-                right--:
+                hi--:
             else
             {
                 // do something
-                j++; k--;           // if you want to continue searching
+                lo++; hi--;           // if you want to continue searching
             }
         }
     }
